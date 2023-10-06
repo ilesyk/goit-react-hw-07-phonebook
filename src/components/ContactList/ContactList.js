@@ -1,22 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, getContacts } from 'redux/contactsSlice';
-import { getFilter } from 'redux/filterSlice';
 import { List, ListItem } from './ContactList.styled';
+import { selectContacts, selectVisibleContacts } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
 
 export const ContactsList = () => {
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-    function getFilteredContacts() {
-    if (filter) {
-      return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase())
-      );
-    }
-    return contacts;
-  }
-  const filteredContacts = getFilteredContacts();
+  const contacts = useSelector(selectContacts);
+  const filteredContacts = useSelector(selectVisibleContacts);
 
   if (!contacts.length || !contacts) {
     return <div>PhoneBook is empty</div>;

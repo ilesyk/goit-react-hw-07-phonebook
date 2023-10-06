@@ -1,7 +1,8 @@
 import { Field, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, getContacts } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import * as Yup from 'yup';
+import { selectContacts } from 'redux/selectors';
 import { FormWrap, ErrMsg } from './ContactForm.styled';
 
 const quizSchema = Yup.object().shape({
@@ -21,7 +22,7 @@ const quizSchema = Yup.object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   function addNewContact(values) {
     if (
       contacts.find(
